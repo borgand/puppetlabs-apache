@@ -422,7 +422,7 @@ define apache::vhost(
     mode    => '0644',
     order   => 'numeric',
     require => Package['httpd'],
-    notify  => Service['httpd'],
+    notify  => Class['Apache::Service'],
   }
   if $::osfamily == 'Debian' {
     $vhost_enable_dir = $::apache::vhost_enable_dir
@@ -438,7 +438,7 @@ define apache::vhost(
       group   => $::apache::params::root_group,
       mode    => '0644',
       require => Concat["${priority_real}-${filename}.conf"],
-      notify  => Service['httpd'],
+      notify  => Class['Apache::Service'],
     }
   }
 
